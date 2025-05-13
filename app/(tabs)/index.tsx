@@ -5,10 +5,10 @@ import EmojiPicker from "@/components/EmojiPicker";
 import EmojiSticker from "@/components/EmojiSticker";
 import IconButton from "@/components/IconButton";
 import ImageViewer from "@/components/ImageViewer";
-import { type ImageSource } from "expo-image";
 import * as ImagePicker from "expo-image-picker";
 import { useState } from "react";
-import { StyleSheet, View } from "react-native";
+import { ImageSourcePropType, StyleSheet, View } from "react-native";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 const PlaceholderImage = require("@/assets/images/background-image.png");
 
@@ -17,7 +17,7 @@ export default function Index() {
     undefined
   );
   const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
-    const [pickedEmoji, setPickedEmoji] = useState<ImageSource | undefined>(undefined);
+  const [pickedEmoji, setPickedEmoji] = useState<ImageSourcePropType | undefined>(undefined);
 
   const [showAppOptions, setShowAppOptions] = useState<boolean>(false);
   const pickImageAsync = async () => {
@@ -51,7 +51,8 @@ export default function Index() {
   };
 
   return (
-    <View style={styles.container}>
+    <GestureHandlerRootView style = { styles.container}>
+      <View style = {styles.container}>
       <View style={styles.imageContainer}>
         <ImageViewer imgSource={PlaceholderImage} selectedImage={selectedImage} />
         {pickedEmoji && <EmojiSticker imageSize={40} stickerSource={pickedEmoji} />}
@@ -87,7 +88,8 @@ export default function Index() {
       >
         <EmojiList onSelect={setPickedEmoji} onCloseModal={onCloseModal} />
       </EmojiPicker>
-    </View>
+</View>
+    </GestureHandlerRootView> 
   );
 }
 
